@@ -12,9 +12,48 @@ const dApi = require("dthings-api")
 //getInfoBot function example:
 
 dApi.getInfoBot("720509373020897331").then(console.log)// This is id of Elaina Bot
+/*
+return: 
+
+{
+  name: 'Elaina',
+  id: '720509373020897331',
+  certificate: true,
+  botbug: false,
+  description: 'Elaina es un bot de utilidad y música',
+  prefix: 'e!',
+  servers: 'N/A',
+  votes: '25',
+  invites: '98',
+  tags: [ 'Music', 'Utility' ],
+  page: [],
+  owners: [ 'Surui#0031' ]
+}
+
+*/
 
 //searchBot function example:
 
 dApi.searchBot("elaina").then(console.log)
+
+/*
+return: 
+
+{
+  name: 'Elaina',
+  id: '720509373020897331',
+  certificate: true,
+  botbug: false,
+  description: 'Elaina es un bot de utilidad y música',
+  prefix: 'e!',
+  servers: 'N/A',
+  votes: '25',
+  invites: '98',
+  tags: [ 'Music', 'Utility' ],
+  page: [],
+  owners: [ 'Surui#0031' ]
+}
+
+*/
 
 ```
