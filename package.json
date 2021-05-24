@@ -4,7 +4,7 @@
   "description": "Get information and search for bots from discordthings.com",
   "main": "index.js",
   "author": "Surui",
-  "homepage": ""
+  "homepage": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
