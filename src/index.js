@@ -46,7 +46,7 @@ async function getInfoBot(id=String){
 	return info	
 }
 
-async function searchBot(name){
+async function searchBot(name=String){
 	if(typeof name !== "string") throw "The name must be a string"
 	let $; 
 
