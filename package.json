@@ -4,6 +4,7 @@
   "description": "Get information and search for bots from discordthings.com",
   "main": "index.js",
   "author": "Surui",
+  "homepage": ""
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +14,9 @@
     "Discord",
     "Bots"
   ],
+  "bugs": {
+    "url": "https://github.com/SuruiDC/dthings-api/issues"
+  }
   "license": "Apache License 2.0",
   "dependencies": {
     "cheerio": "^1.0.0-rc.9",
