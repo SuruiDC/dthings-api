@@ -4,3 +4,17 @@
 
 # Dthings-api
 Get information and search for bots from discordthings.com
+
+Example:
+```js
+const dApi = require("dthings-api")
+
+//getInfoBot function example:
+
+dApi.getInfoBot("720509373020897331").then(console.log)// This is id of Elaina Bot
+
+//searchBot function example:
+
+dApi.searchBot("elaina").then(console.log)
+
+```
