@@ -1,0 +1,22 @@
+{
+  "name": "dthings-api",
+  "version": "1.0.0",
+  "description": "Get information and search for bots from discordthings.com",
+  "main": "index.js",
+  "author": "Surui",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Dthings",
+    "BotList",
+    "Discord",
+    "Bots"
+  ],
+  "license": "Apache License 2.0",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.9",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  }
+}
