@@ -26,23 +26,16 @@ async function getInfoBot(id=String){
 		owners: []
 	}
 
-	info.tags.push($(".mb-1").find("span").html())
-  	$(".mb-1").next().find("span").html() ? info.tags.push($(".mb-1").next().find("span").html()) : undefined
-  	$(".mb-1").next().next().find("span").html() ? info.tags.push($(".mb-1").next().next().find("span").html()) : undefined
-  	$(".mb-1").next().next().next().find("span").html() ? info.tags.push($(".mb-1").next().next().next().find("span").html()) : undefined
-  	$(".mb-1").next().next().next().next().find("span").html() ? info.tags.push($(".mb-1").next().next().next().next().find("span").html()) : undefined
+	$(".tag.botTags.mb-1").map((e, x) => tags.push(x.children[0].data))
 
   	let reg = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
   	for (var i of $(".column.is-3.sidebar").html().match(reg)){
     	i.startsWith("https://cdn.discordapp.com/") || i.startsWith("https://discord.gg/") || i.startsWith("https://discord.com/invite/") ? undefined : info.page.push(i)
   	}
 
-  	info.owners.push($('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().find("p").html())
-  	$('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().find("p").html() ? info.owners.push($('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().find("p").html()) : undefined
-  	$('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().find("p").html() ? info.owners.push($('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().find("p").html()) : undefined
-  	$('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().next().find("p").html() ? info.owners.push($('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().next().find("p").html()) : undefined
-  	$('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().next().next().find("p").html() ? info.owners.push($('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().next().next().find("p").html()) : undefined
-  	$('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().find("p").html() ? info.owners.push($('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().find("p").html()) : undefined
+  	$(".is-flex.mt-4 .box-2").map((i,e) => owners.push(e.children[0].data))
+  	info.owners = info.owners.slice(2)
+
 	return info	
 }
 
@@ -62,6 +55,7 @@ async function searchBot(name=String){
 		uri: `https://bots.discordthings.com/bot/${id}`, 
 		transform: body => load(body)
 	})
+	
 	let info = {
 		name: $(".BotName.is-size-2.has-text-white").text().trim(),
 		id: id,
@@ -77,23 +71,15 @@ async function searchBot(name=String){
 		owners: []
 	}
 
-	info.tags.push($(".mb-1").find("span").html())
-  	$(".mb-1").next().find("span").html() ? info.tags.push($(".mb-1").next().find("span").html()) : undefined
-  	$(".mb-1").next().next().find("span").html() ? info.tags.push($(".mb-1").next().next().find("span").html()) : undefined
-  	$(".mb-1").next().next().next().find("span").html() ? info.tags.push($(".mb-1").next().next().next().find("span").html()) : undefined
-  	$(".mb-1").next().next().next().next().find("span").html() ? info.tags.push($(".mb-1").next().next().next().next().find("span").html()) : undefined
+	$(".tag.botTags.mb-1").map((e, x) => tags.push(x.children[0].data))
 
   	let reg = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
   	for (var i of $(".column.is-3.sidebar").html().match(reg)){
     	i.startsWith("https://cdn.discordapp.com/") || i.startsWith("https://discord.gg/") || i.startsWith("https://discord.com/invite/") ? undefined : info.page.push(i)
   	}
 
-  	info.owners.push($('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().find("p").html())
-  	$('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().find("p").html() ? info.owners.push($('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().find("p").html()) : undefined
-  	$('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().find("p").html() ? info.owners.push($('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().find("p").html()) : undefined
-  	$('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().next().find("p").html() ? info.owners.push($('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().next().find("p").html()) : undefined
-  	$('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().next().next().find("p").html() ? info.owners.push($('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().next().next().find("p").html()) : undefined
-  	$('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().find("p").html() ? info.owners.push($('.is-flex.mt-4').next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().find("p").html()) : undefined
+  	$(".is-flex.mt-4 .box-2").map((i,e) => owners.push(e.children[0].data))
+  	info.owners = info.owners.slice(2)
 
 	return info
 }

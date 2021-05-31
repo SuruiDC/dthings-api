@@ -12,6 +12,7 @@ const dApi = require("dthings-api")
 //getInfoBot function example:
 
 dApi.getInfoBot("720509373020897331").then(console.log)// This is id of Elaina Bot
+
 /*
 return: 
 
