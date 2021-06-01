@@ -1,6 +1,6 @@
 {
   "name": "dthings-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Get information and search for bots from discordthings.com",
   "main": "src/index.js",
   "author": "Surui",
