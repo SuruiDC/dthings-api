@@ -26,14 +26,14 @@ async function getInfoBot(id=String){
 		owners: []
 	}
 
-	$(".tag.botTags.mb-1").map((e, x) => tags.push(x.children[0].data))
+	$(".tag.botTags.mb-1").map((e, x) => info.tags.push(x.children[0].data))
 
   	let reg = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
   	for (var i of $(".column.is-3.sidebar").html().match(reg)){
     	i.startsWith("https://cdn.discordapp.com/") || i.startsWith("https://discord.gg/") || i.startsWith("https://discord.com/invite/") ? undefined : info.page.push(i)
   	}
 
-  	$(".is-flex.mt-4 .box-2").map((i,e) => owners.push(e.children[0].data))
+  	$(".is-flex.mt-4 .box-2").map((i,e) => info.owners.push(e.children[0].data))
   	info.owners = info.owners.slice(2)
 
 	return info	
@@ -71,14 +71,14 @@ async function searchBot(name=String){
 		owners: []
 	}
 
-	$(".tag.botTags.mb-1").map((e, x) => tags.push(x.children[0].data))
+	$(".tag.botTags.mb-1").map((e, x) => info.tags.push(x.children[0].data))
 
   	let reg = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
   	for (var i of $(".column.is-3.sidebar").html().match(reg)){
     	i.startsWith("https://cdn.discordapp.com/") || i.startsWith("https://discord.gg/") || i.startsWith("https://discord.com/invite/") ? undefined : info.page.push(i)
   	}
 
-  	$(".is-flex.mt-4 .box-2").map((i,e) => owners.push(e.children[0].data))
+  	$(".is-flex.mt-4 .box-2").map((i,e) => info.owners.push(e.children[0].data))
   	info.owners = info.owners.slice(2)
 
 	return info
