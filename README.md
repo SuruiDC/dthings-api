@@ -3,7 +3,7 @@
 </p>
 
 # Dthings-api
-Get information and search for bots from discordthings.com
+Get information users and bots from discordthings.com
 
 Example:
 ```js
@@ -19,41 +19,52 @@ return:
 {
   name: 'Elaina',
   id: '720509373020897331',
-  certificate: true,
-  botbug: false,
-  description: 'Elaina es un bot de utilidad y música',
+  tag: '#1634',
+  avatar: 'https://cdn.discordapp.com/avatars/720509373020897331/4855a8f1df6cab97a66fd504be69cf77',
   prefix: 'e!',
   servers: 'N/A',
-  votes: '25',
-  invites: '98',
-  tags: [ 'Music', 'Utility' ],
+  votes: '35',
+  invites: '115',
   page: [],
-  owners: [ 'Surui#0031' ]
+  owners: 'Surui#0031'
 }
 
 */
 
 //searchBot function example:
 
-dApi.searchBot("elaina").then(console.log)
+dApi.getUser("618634689204322314").then(console.log) //This is id of Surui
 
 /*
 return: 
 
 {
-  name: 'Elaina',
-  id: '720509373020897331',
-  certificate: true,
-  botbug: false,
-  description: 'Elaina es un bot de utilidad y música',
-  prefix: 'e!',
-  servers: 'N/A',
-  votes: '25',
-  invites: '98',
-  tags: [ 'Music', 'Utility' ],
-  page: [],
-  owners: [ 'Surui#0031' ]
+  username: 'Surui',
+  id: '618634689204322314',
+  avatar: 'https://cdn.discordapp.com/avatars/618634689204322314/a_9d57e16f094d0874e61c17c0b9c8e20e',
+  description: 'Juego al osu',
+  badges: [
+    'Moderador Jefe',
+    'Promovedor',
+    'Seguidor',
+    'Usuario de PyroNode',
+    'Desarrollador de Bots',
+    'HypeSquad Balance',
+    'Nitro Classic Subscriber'
+  ],
+  bots: [
+    {
+      name: 'Elaina',
+      id: '720509373020897331',
+      certificate: true,
+      botbug: false,
+      avatar: 'https://cdn.discordapp.com/avatars/720509373020897331/4855a8f1df6cab97a66fd504be69cf77.webp?size=256',
+      description: 'Elaina es un bot de utilidad y música'
+    }
+  ]
 }
+
+Note: Bots array limit 6 items
 
 */
 
