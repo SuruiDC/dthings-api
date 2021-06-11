@@ -31,7 +31,7 @@ return:
 
 */
 
-//searchBot function example:
+//getUser function example:
 
 dApi.getUser("618634689204322314").then(console.log) //This is id of Surui
 
