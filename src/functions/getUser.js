@@ -21,22 +21,11 @@ module.exports.getUser = async (id=String) => {
 		bots: []
 	}
 
-	$(".fad.fa-angel.tippy.mr-2").attr("data-tippy-content") ? info.badges.push($(".fad.fa-angel.tippy.mr-2").attr("data-tippy-content")) : undefined
-	$(".tippy.mr-1").attr("data-tippy-content") ? info.badges.push($(".tippy.mr-1").attr("data-tippy-content")) : undefined
-	$(".tippy.mr-1").next().attr("data-tippy-content") ? info.badges.push($(".tippy.mr-1").next().attr("data-tippy-content")) : undefined
-	$(".tippy.mr-1").next().next().attr("data-tippy-content") ? info.badges.push($(".tippy.mr-1").next().next().attr("data-tippy-content")) : undefined
-	$(".tippy.mr-1").next().next().next().attr("data-tippy-content") ? info.badges.push($(".tippy.mr-1").next().next().next().attr("data-tippy-content")) : undefined
-	$(".tippy.mr-1").next().next().next().next().attr("data-tippy-content") ? info.badges.push($(".tippy.mr-1").next().next().next().next().attr("data-tippy-content")) : undefined
-	$(".tippy.mr-1").next().next().next().next().next().attr("data-tippy-content") ? info.badges.push($(".tippy.mr-1").next().next().next().next().next().attr("data-tippy-content")) : undefined
-	$(".tippy.mr-1").next().next().next().next().next().next().attr("data-tippy-content") ? info.badges.push($(".tippy.mr-1").next().next().next().next().next().next().attr("data-tippy-content")) : undefined
-	$(".tippy.mr-1").next().next().next().next().next().next().next().attr("data-tippy-content") ? info.badges.push($(".tippy.mr-1").next().next().next().next().next().next().next().attr("data-tippy-content")) : undefined
-	$(".tippy.mr-1").next().next().next().next().next().next().next().next().attr("data-tippy-content") ? info.badges.push($(".tippy.mr-1").next().next().next().next().next().next().next().next().attr("data-tippy-content")) : undefined
-	$(".tippy.mr-1").next().next().next().next().next().next().next().next().next().attr("data-tippy-content") ? info.badges.push($(".tippy.mr-1").next().next().next().next().next().next().next().next().next().attr("data-tippy-content")) : undefined
-	$(".tippy.mr-1").next().next().next().next().next().next().next().next().next().next().attr("data-tippy-content") ? info.badges.push($(".tippy.mr-1").next().next().next().next().next().next().next().next().next().next().attr("data-tippy-content")) : undefined
-	$(".fad.fa-virus-slash.tippy.mr-2").attr("data-tippy-content") ? info.badges.push($(".fad.fa-virus-slash.tippy.mr-2").attr("data-tippy-content")) : undefined
-	$(".fad.fa-badge-check.has-text-info.tippy mr-2").attr("data-tippy-content") ? info.badges.push($(".fad.fa-badge-check.has-text-info.tippy mr-2").attr("data-tippy-content")) :undefined
+	for (var i of $(".tooltip").text().replace(/Votos: \d*/g, "").replace(/Invites \d*/g, "").trim().split("\n")){
+		i === "" ? undefined : info.badges.push(i)
+	}
 
-	if(!$(".box.botCard.bg-dark")) info.bots = []
+	if(!$(".box.botCard.bg-dark").html()) info.bots = []
 	else{
 		info.bots.push({
 			name: $(".cardBotName.has-text-white.mt-5.has-text-centered").html().replace('<span data-tippy-content="Certificado" class="tippy has-text-centered"><i class="fad fa-award"></i></span>',"").replace('span data-tippy-content="Bot Bug" class="tippy has-text-centered"><i class="fas fa-virus"></i></span>',"").trim(),
@@ -44,7 +33,8 @@ module.exports.getUser = async (id=String) => {
 			certificate: $(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Certificado" class="tippy has-text-centered"><i class="fad fa-award"></i></span>'),
 			botbug: $(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Bot Bug" class="tippy has-text-centered"><i class="fas fa-virus"></i></span>'),
 			avatar: $(".centrado.card-img-top").attr("src"),
-			description: $(".cardBotDesc.mt-1.has-text-centered").html()
+			votes: $(".tooltip.centrado").find("span").html().trim().split("<br>")[0].trim().replace("Votos: ", ""),
+			invites: $(".tooltip.centrado").find("span").html().trim().split("<br>")[1].trim().replace("Invites ", "")
 		})
 
 		$(".column.is-4.mb-5").next().find(".box.botCard.bg-dark").html() ? (
@@ -54,7 +44,8 @@ module.exports.getUser = async (id=String) => {
 				certificate: $(".column.is-4.mb-5").next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Certificado" class="tippy has-text-centered"><i class="fad fa-award"></i></span>'),
 				botbug: $(".column.is-4.mb-5").next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Bot Bug" class="tippy has-text-centered"><i class="fas fa-virus"></i></span>'),
 				avatar: $(".column.is-4.mb-5").next().find(".box.botCard.bg-dark").find(".centrado.card-img-top").attr("src"),
-				description: $(".column.is-4.mb-5").next().find(".box.botCard.bg-dark").find(".cardBotDesc.mt-1.has-text-centered").html()
+				votes: $(".column.is-4.mb-5").next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[0].trim().replace("Votos: ", ""),
+				invites: $(".column.is-4.mb-5").next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[1].trim().replace("Invites ", "")
 			})
 		) : undefined
 
@@ -65,7 +56,8 @@ module.exports.getUser = async (id=String) => {
 				certificate: $(".column.is-4.mb-5").next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Certificado" class="tippy has-text-centered"><i class="fad fa-award"></i></span>'),
 				botbug: $(".column.is-4.mb-5").next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Bot Bug" class="tippy has-text-centered"><i class="fas fa-virus"></i></span>'),
 				avatar: $(".column.is-4.mb-5").next().next().find(".box.botCard.bg-dark").find(".centrado.card-img-top").attr("src"),
-				description: $(".column.is-4.mb-5").next().next().find(".box.botCard.bg-dark").find(".cardBotDesc.mt-1.has-text-centered").html()
+				votes: $(".column.is-4.mb-5").next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[0].trim().replace("Votos: ", ""),
+				invites: $(".column.is-4.mb-5").next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[1].trim().replace("Invites ", "")
 			})
 		) : undefined
 
@@ -76,7 +68,8 @@ module.exports.getUser = async (id=String) => {
 				certificate: $(".column.is-4.mb-5").next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Certificado" class="tippy has-text-centered"><i class="fad fa-award"></i></span>'),
 				botbug: $(".column.is-4.mb-5").next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Bot Bug" class="tippy has-text-centered"><i class="fas fa-virus"></i></span>'),
 				avatar: $(".column.is-4.mb-5").next().next().next().find(".box.botCard.bg-dark").find(".centrado.card-img-top").attr("src"),
-				description: $(".column.is-4.mb-5").next().next().next().find(".box.botCard.bg-dark").find(".cardBotDesc.mt-1.has-text-centered").html()
+				votes: $(".column.is-4.mb-5").next().next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[0].trim().replace("Votos: ", ""),
+				invites: $(".column.is-4.mb-5").next().next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[1].trim().replace("Invites ", "")
 			})
 		) : undefined
 
@@ -87,7 +80,8 @@ module.exports.getUser = async (id=String) => {
 				certificate: $(".column.is-4.mb-5").next().next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Certificado" class="tippy has-text-centered"><i class="fad fa-award"></i></span>'),
 				botbug: $(".column.is-4.mb-5").next().next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Bot Bug" class="tippy has-text-centered"><i class="fas fa-virus"></i></span>'),
 				avatar: $(".column.is-4.mb-5").next().next().next().next().find(".box.botCard.bg-dark").find(".centrado.card-img-top").attr("src"),
-				description: $(".column.is-4.mb-5").next().next().next().next().find(".box.botCard.bg-dark").find(".cardBotDesc.mt-1.has-text-centered").html()
+				votes: $(".column.is-4.mb-5").next().next().next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[0].trim().replace("Votos: ", ""),
+				invites: $(".column.is-4.mb-5").next().next().next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[1].trim().replace("Invites ", "")
 			})
 		) : undefined
 
@@ -98,11 +92,11 @@ module.exports.getUser = async (id=String) => {
 				certificate: $(".column.is-4.mb-5").next().next().next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Certificado" class="tippy has-text-centered"><i class="fad fa-award"></i></span>'),
 				botbug: $(".column.is-4.mb-5").next().next().next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Bot Bug" class="tippy has-text-centered"><i class="fas fa-virus"></i></span>'),
 				avatar: $(".column.is-4.mb-5").next().next().next().next().next().find(".box.botCard.bg-dark").find(".centrado.card-img-top").attr("src"),
-				description: $(".column.is-4.mb-5").next().next().next().next().next().find(".box.botCard.bg-dark").find(".cardBotDesc.mt-1.has-text-centered").html()
+				votes: $(".column.is-4.mb-5").next().next().next().next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[0].trim().replace("Votos: ", ""),
+				invites: $(".column.is-4.mb-5").next().next().next().next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[1].trim().replace("Invites ", "")
 			})
 		) : undefined
 	}
-	
 
 	return info
 }

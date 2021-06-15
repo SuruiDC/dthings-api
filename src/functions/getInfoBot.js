@@ -15,6 +15,7 @@ module.exports.getInfoBot = async (id=String) => {
 	let info = {
 		name: $("title").html().replace("| DiscordThings", "").trim(),
 		id: id,
+		description: $("meta").next().next().next().attr("content"),
 		tag:$(".is-size-4").html(),
 		avatar: $(".botImg-voteArea.mt-0.floating").find("img").attr("src"),
 		prefix: $(".box-2").html().replace("Prefix: ", "").trim(),
@@ -22,7 +23,7 @@ module.exports.getInfoBot = async (id=String) => {
 		votes: $(".is-flex.mt-4").next().next().find("p").html().replace("Votos: ", ""),
 		invites: $(".is-flex.mt-4").next().next().next().find("p").html().replace("Invitaciones: ", ""),
 		page: [],
-		owners: $(".has-text-white.is-size-6").html()
+		owner: $(".has-text-white.is-size-6").next().html()
 	}
 
 	try{

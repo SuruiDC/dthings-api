@@ -19,6 +19,7 @@ return:
 {
   name: 'Elaina',
   id: '720509373020897331',
+  description: 'Elaina es un bot de utilidad y música',
   tag: '#1634',
   avatar: 'https://cdn.discordapp.com/avatars/720509373020897331/4855a8f1df6cab97a66fd504be69cf77',
   prefix: 'e!',
@@ -26,7 +27,7 @@ return:
   votes: '35',
   invites: '115',
   page: [],
-  owners: 'Surui#0031'
+  owner: 'Surui#0031'
 }
 
 */
@@ -59,7 +60,8 @@ return:
       certificate: true,
       botbug: false,
       avatar: 'https://cdn.discordapp.com/avatars/720509373020897331/4855a8f1df6cab97a66fd504be69cf77.webp?size=256',
-      description: 'Elaina es un bot de utilidad y música'
+      votes: '35',
+      invites: '115'
     }
   ]
 }
