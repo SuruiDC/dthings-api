@@ -17,7 +17,7 @@ module.exports.getInfoBot = async (id=String) => {
 		id: id,
 		description: $("meta").next().next().next().attr("content"),
 		tag:$(".is-size-4").html(),
-		avatar: $(".botImg-voteArea.mt-0.floating").find("img").attr("src"),
+		avatar: $(".bvoteArea.pt-5 ").find("img").attr("src"),
 		prefix: $(".box-2").html().replace("Prefix: ", "").trim(),
 		servers: $(".is-flex.mt-4").next().find("p").html().replace("Servidores: ", ""),
 		votes: $(".is-flex.mt-4").next().next().find("p").html().replace("Votos: ", ""),

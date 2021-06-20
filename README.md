@@ -24,8 +24,8 @@ return:
   avatar: 'https://cdn.discordapp.com/avatars/720509373020897331/4855a8f1df6cab97a66fd504be69cf77',
   prefix: 'e!',
   servers: 'N/A',
-  votes: '35',
-  invites: '115',
+  votes: '40',
+  invites: '127',
   page: [],
   owner: 'Surui#0031'
 }
@@ -42,16 +42,19 @@ return:
 {
   username: 'Surui',
   id: '618634689204322314',
-  avatar: 'https://cdn.discordapp.com/avatars/618634689204322314/a_9d57e16f094d0874e61c17c0b9c8e20e',
+  avatar: 'https://cdn.discordapp.com/avatars/618634689204322314/4f9cae41b56d66f51dff1350453ab1e6',
   description: 'Juego al osu',
+  votes: '40',
+  lastSesion: '2021/6/20',
   badges: [
+    'Balance',
     'Moderador Jefe',
+    'Moderador',
+    'Desarrollador Certificado',
+    'Desarrollador de Bots',
     'Promovedor',
     'Seguidor',
-    'Usuario de PyroNode',
-    'Desarrollador de Bots',
-    'HypeSquad Balance',
-    'Nitro Classic Subscriber'
+    'Usuario de PyroNode'
   ],
   bots: [
     {
@@ -60,8 +63,8 @@ return:
       certificate: true,
       botbug: false,
       avatar: 'https://cdn.discordapp.com/avatars/720509373020897331/4855a8f1df6cab97a66fd504be69cf77.webp?size=256',
-      votes: '35',
-      invites: '115'
+      votes: '40',
+      invites: '127'
     }
   ]
 }
@@ -70,4 +73,22 @@ Note: Bots array limit 6 items
 
 */
 
+//getTopBots example:
+
+dApi.getTopBots().then(console.log)
+
+/*
+
+[
+  { name: 'Dynox', votes: '131', invites: '121' },
+  { name: 'Troxx', votes: '104', invites: '72' },
+  { name: 'Zaida', votes: '95', invites: '460' },
+  { name: 'WikiCord', votes: '71', invites: '98' },
+  { name: 'Silvia', votes: '44', invites: '96' },
+  { name: 'Elaina', votes: '40', invites: '127' },
+  { name: 'Cassette', votes: '38', invites: '72' },
+  { name: 'Chika Fujiwara', votes: '37', invites: '97' }
+]
+
+*/
 ```
