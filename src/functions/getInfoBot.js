@@ -22,18 +22,15 @@ module.exports.getInfoBot = async (id=String) => {
 		servers: $(".is-flex.mt-4").next().find("p").html().replace("Servidores: ", ""),
 		votes: $(".is-flex.mt-4").next().next().find("p").html().replace("Votos: ", ""),
 		invites: $(".is-flex.mt-4").next().next().next().find("p").html().replace("Invitaciones: ", ""),
+		tags: [],
 		page: [],
 		owner: $(".has-text-white.is-size-6").next().html()
 	}
 
-	try{
-		let reg = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
-  		for (var i of $(".bvoteArea.pt-5 ").html().match(reg)){
-    		i.startsWith("https://cdn.discordapp.com/") || i.startsWith("https://discord.gg/") || i.startsWith("https://discord.com/invite/") ? undefined : info.page.push(i)
-  		}
-	} catch (e) {
-		info.page = []
+	if($(".mt-3").attr("href")){
+		$(".mt-3").attr("href").includes("discord.gg" || "discord.com") ? undefined : info.page.push($(".mt-3").attr("href"))
 	}
+	$(".tag.botTags.mb-1").map((e, i) => info.tags.push(i.children[0].data))
 
 	return info	
 }

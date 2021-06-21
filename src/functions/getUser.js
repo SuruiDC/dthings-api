@@ -24,81 +24,49 @@ module.exports.getUser = async (id=String) => {
 	}
 
 	for (var i of $(".tooltip").text().replace(/Votos: \d*/g, "").replace(/Invites \d*/g, "").trim().split("\n")){
-		i === "" ? undefined : info.badges.push(i)
+		i === "" || i === " " ? undefined : info.badges.push(i)
 	}
 
-	if(!$(".box.botCard.bg-dark").html()) info.bots = []
+	if(!$(".col-md-6.col-lg-4.pb-3").html()) info.bots = []
 	else{
-		info.bots.push({
-			name: $(".cardBotName.has-text-white.mt-5.has-text-centered").html().replace('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">',"").replace('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">',"").trim(),
-			id: $(".box.botCard.bg-dark").find(".cardBtn1").attr("title").split(" ")[0],
-			certificate: $(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">'),
-			botbug: $(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">'),
-			avatar: $(".centrado.card-img-top").attr("src"),
-			votes: $(".tooltip.centrado").find("span").html().trim().split("<br>")[0].trim().replace("Votos: ", ""),
-			invites: $(".tooltip.centrado").find("span").html().trim().split("<br>")[1].trim().replace("Invites ", "")
-		})
+		let stats = []
+		for (var i of $(".is-inline-block").text().split(" ")){
+			i.length < 1 || i === "Invites:" || i === "Votos:" || i === "Votes:" || i === "\nVotos:" ? undefined : stats.push(i.replace("Votos:", "").replace("Votes:", "").replace("\n\nInvites:", "").replace("\n", "").replace("\n", "")) 
+		}
+		let images = []
+		$(".card-custom-avatar").map((e, i) => images.push(i.children[0].next.attribs.src))
 
-		$(".column.is-4.mb-5").next().find(".box.botCard.bg-dark").html() ? (
-			info.bots.push({
-				name: $(".column.is-4.mb-5").next().find(".cardBotName.has-text-white.mt-5.has-text-centered").html().replace('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">',"").replace('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">',"").trim(),
-				id: $(".column.is-4.mb-5").next().find(".box.botCard.bg-dark").find(".cardBtn1").attr("title").split(" ")[0],
-				certificate: $(".column.is-4.mb-5").next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">'),
-				botbug: $(".column.is-4.mb-5").next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">'),
-				avatar: $(".column.is-4.mb-5").next().find(".box.botCard.bg-dark").find(".centrado.card-img-top").attr("src"),
-				votes: $(".column.is-4.mb-5").next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[0].trim().replace("Votos: ", ""),
-				invites: $(".column.is-4.mb-5").next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[1].trim().replace("Invites ", "")
-			})
-		) : undefined
+		let status = []
+		$(".card-title.has-text-white.is-3").map((e, i) => status.push(i.children[0].next === null ? false : i.children[0].next.attribs.src))
 
-		$(".column.is-4.mb-5").next().next().find(".box.botCard.bg-dark").html() ? (
-			info.bots.push({
-				name: $(".column.is-4.mb-5").next().next().find(".cardBotName.has-text-white.mt-5.has-text-centered").html().replace('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">',"").replace('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">',"").trim(),
-				id: $(".column.is-4.mb-5").next().next().find(".box.botCard.bg-dark").find(".cardBtn1").attr("title").split(" ")[0],
-				certificate: $(".column.is-4.mb-5").next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">'),
-				botbug: $(".column.is-4.mb-5").next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">'),
-				avatar: $(".column.is-4.mb-5").next().next().find(".box.botCard.bg-dark").find(".centrado.card-img-top").attr("src"),
-				votes: $(".column.is-4.mb-5").next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[0].trim().replace("Votos: ", ""),
-				invites: $(".column.is-4.mb-5").next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[1].trim().replace("Invites ", "")
-			})
-		) : undefined
+		let names = []
+		$(".card-title.has-text-white.is-3").map((e, i) => names.push(i.children[0].data))
 
-		$(".column.is-4.mb-5").next().next().next().find(".box.botCard.bg-dark").html() ? (
-			info.bots.push({
-				name: $(".column.is-4.mb-5").next().next().next().find(".cardBotName.has-text-white.mt-5.has-text-centered").html().replace('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">',"").replace('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">',"").trim(),
-				id: $(".column.is-4.mb-5").next().next().next().find(".box.botCard.bg-dark").find(".cardBtn1").attr("title").split(" ")[0],
-				certificate: $(".column.is-4.mb-5").next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">'),
-				botbug: $(".column.is-4.mb-5").next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">'),
-				avatar: $(".column.is-4.mb-5").next().next().next().find(".box.botCard.bg-dark").find(".centrado.card-img-top").attr("src"),
-				votes: $(".column.is-4.mb-5").next().next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[0].trim().replace("Votos: ", ""),
-				invites: $(".column.is-4.mb-5").next().next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[1].trim().replace("Invites ", "")
-			})
-		) : undefined
+		let ids = []
+		for (var i of images){
+			ids.push(i.match(/\d{17,19}/g)[0])
+		}
 
-		$(".column.is-4.mb-5").next().next().next().next().find(".box.botCard.bg-dark").html() ? (
-			info.bots.push({
-				name: $(".column.is-4.mb-5").next().next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().replace('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">',"").replace('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">',"").trim(),
-				id: $(".column.is-4.mb-5").next().next().next().next().find(".box.botCard.bg-dark").find(".cardBtn1").attr("title").split(" ")[0],
-				certificate: $(".column.is-4.mb-5").next().next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">'),
-				botbug: $(".column.is-4.mb-5").next().next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<span data-tippy-content="Bot Bug" class="tippy has-text-centered"><i class="fas fa-virus"></i></span>'),
-				avatar: $(".column.is-4.mb-5").next().next().next().next().find(".box.botCard.bg-dark").find(".centrado.card-img-top").attr("src"),
-				votes: $(".column.is-4.mb-5").next().next().next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[0].trim().replace("Votos: ", ""),
-				invites: $(".column.is-4.mb-5").next().next().next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[1].trim().replace("Invites ", "")
-			})
-		) : undefined
+		let descriptions = []
+		$(".col-md-6.col-lg-4.pb-3").find(".card-body").map((e, i) => descriptions.push(i.children[3].children[0].data))
 
-		$(".column.is-4.mb-5").next().next().next().next().next().find(".box.botCard.bg-dark").html() ? (
+		for (var i in names){
 			info.bots.push({
-				name: $(".column.is-4.mb-5").next().next().next().next().next().next().find(".cardBotName.has-text-white.mt-5.has-text-centered").html().replace('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">',"").replace('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">',"").trim(),
-				id: $(".column.is-4.mb-5").next().next().next().next().next().find(".box.botCard.bg-dark").find(".cardBtn1").attr("title").split(" ")[0],
-				certificate: $(".column.is-4.mb-5").next().next().next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">'),
-				botbug: $(".column.is-4.mb-5").next().next().next().next().next().find(".box.botCard.bg-dark").find(".cardBotName.has-text-white.mt-5.has-text-centered").html().includes('<img draggable="false" src="https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png" class="tooltip mr-1" width="25px" height="25px">'),
-				avatar: $(".column.is-4.mb-5").next().next().next().next().next().find(".box.botCard.bg-dark").find(".centrado.card-img-top").attr("src"),
-				votes: $(".column.is-4.mb-5").next().next().next().next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[0].trim().replace("Votos: ", ""),
-				invites: $(".column.is-4.mb-5").next().next().next().next().next().find(".tooltip.centrado").find("span").html().trim().split("<br>")[1].trim().replace("Invites ", "")
+				name: names[i],
+				id: ids[i],
+				avatar: images[i],
+				certificate: status[i] ? (
+					status[i].includes("https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png")
+				) : false,
+				botbug : status[i] ? (
+					status[i].includes("https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png")
+				) : false,
+				votes: stats[i],
+				invites: stats[parseInt(i) + 1]
 			})
-		) : undefined
-	}
+			stats.shift()
+		}
+	} 
 
 	return info
 }

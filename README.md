@@ -24,10 +24,11 @@ return:
   avatar: 'https://cdn.discordapp.com/avatars/720509373020897331/4855a8f1df6cab97a66fd504be69cf77',
   prefix: 'e!',
   servers: 'N/A',
-  votes: '40',
-  invites: '127',
+  votes: '42',
+  invites: '129',
+  tags: [ 'Music', 'Utility' ],
   page: [],
-  owner: 'Surui#0031'
+  owner: 'Surui#8291'
 }
 
 */
@@ -78,6 +79,7 @@ Note: Bots array limit 6 items
 dApi.getTopBots().then(console.log)
 
 /*
+return:
 
 [
   { name: 'Dynox', votes: '131', invites: '121' },
