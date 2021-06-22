@@ -1,16 +1,21 @@
 const { load } = require("cheerio")
 const request = require("request-promise")
 
-module.exports.getInfoBot = async (id=String) => {
-	
-	if(typeof id !== "string") throw new TypeError("The id must be a string")
+module.exports.searchBot = async (name=String) => {
+	if(typeof name !== "string") throw new TypeError("The name must be a string")
+	if(name.match(/\d{17,19}/g)) throw new TypeError("The name cannot be an id")
 
-	const $ = await request({
+	let $ = await request({
+		uri: `https://discordthings.com/search?q=${name.replace(" ", "+")}&page=1`, 
+		transform: body => load(body)
+	})
+	if($("title").html() === "DiscordThings | 404") throw new Error("Results 0")
+
+	let id = $(".img-fluid").attr("src").match(/\d{17,19}/g)[0]
+	$ = await request({
 		uri: `https://discordthings.com/bot/${id}`, 
 		transform: body => load(body)
 	})
-
-	if($("title").html() === "DiscordThings | 404") throw new Error("The bot is not registered on the page")
 
 	let info = {
 		name: $("title").html().replace("| DiscordThings", "").trim(),

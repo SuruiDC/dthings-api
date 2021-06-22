@@ -3,14 +3,14 @@ const request = require("request-promise")
 
 module.exports.getUser = async (id=String) => {
 
-	if(typeof id !== "string") throw "The id must be a string"
+	if(typeof id !== "string") throw new TypeError("The id must be a string")
 
 	const $ = await request({
 		uri: `https://discordthings.com/u/${id}`, 
 		transform: body => load(body)
 	})
 
-	if($("title").html() === "DiscordThings | 404") throw "The user is not registered on the page"
+	if($("title").html() === "DiscordThings | 404") throw new Error("The user is not registered on the page")
 
 	let info = {
 		username: $(".UserName.is-size-5.has-text-white").text().trim(),
@@ -30,8 +30,8 @@ module.exports.getUser = async (id=String) => {
 	if(!$(".col-md-6.col-lg-4.pb-3").html()) info.bots = []
 	else{
 		let stats = []
-		for (var i of $(".is-inline-block").text().split(" ")){
-			i.length < 1 || i === "Invites:" || i === "Votos:" || i === "Votes:" || i === "\nVotos:" ? undefined : stats.push(i.replace("Votos:", "").replace("Votes:", "").replace("\n\nInvites:", "").replace("\n", "").replace("\n", "")) 
+		for (var i of $(".is-inline-block").text().replace(/[\n\r]/g,'').split(" ")){
+			i.length < 1 || i === "Invites:" || i === "Votos:" || i === "Votes:" || i === "\nVotos:" || i === "Invites:" ? undefined : stats.push(i.replace("Votos:", "").replace("Votes:", "").replace("\n\nInvites:", "").replace("\n", "").replace("\n", "")) 
 		}
 		let images = []
 		$(".card-custom-avatar").map((e, i) => images.push(i.children[0].next.attribs.src))
@@ -64,7 +64,7 @@ module.exports.getUser = async (id=String) => {
 				votes: stats[i],
 				invites: stats[parseInt(i) + 1]
 			})
-			stats.shift()
+			stats.shift($(".is-inline-block").text().split(" "))
 		}
 	} 
 
