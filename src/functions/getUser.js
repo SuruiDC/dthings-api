@@ -16,9 +16,11 @@ module.exports.getUser = async (id=String) => {
 		username: $(".UserName.is-size-5.has-text-white").text().trim(),
 		id: id,
 		avatar: $(".rounded-circle").attr("src"),
-		description: $(".text-center").find("p").html().trim(),
+		description: $(".text-center").find("p").html($(".text-center").find("p").html()).text().trim(),
 		votes: $(".heading.has-text-white").html().replace("\n", ""),
 		lastSesion: $(".card-profile-stats.d-flex.justify-content-center.mt-md-5").find("div").next().next().children().html().replace("\n", ""),
+		staff: Boolean,
+		points: String,
 		badges: [],
 		bots: []
 	}
@@ -27,11 +29,19 @@ module.exports.getUser = async (id=String) => {
 		i === "" || i === " " ? undefined : info.badges.push(i)
 	}
 
+	/Puntos: \d*/g.test(info.badges[0]) ? (
+		info.points = info.badges.shift().replace("Puntos: ", ""),
+		info.staff = true 
+	) : (
+		info.points = "0",
+		info.staff = false
+	)
+
 	if(!$(".col-md-6.col-lg-4.pb-3").html()) info.bots = []
 	else{
 		let stats = []
 		for (var i of $(".is-inline-block").text().replace(/[\n\r]/g,'').split(" ")){
-			i.length < 1 || i === "Invites:" || i === "Votos:" || i === "Votes:" || i === "\nVotos:" || i === "Invites:" ? undefined : stats.push(i.replace("Votos:", "").replace("Votes:", "").replace("\n\nInvites:", "").replace("\n", "").replace("\n", "")) 
+			i.length < 1 || i === "Invites:" || i === "Votos:" || i === "Votes:" || i === "\nVotos:" || i === "Invites:" ? undefined : stats.push(i.replace("Votos:", "").replace("Votes:", "").replace("\n\nInvites:", "").replace("\n", "").replace("\n", "").replace("Invites:", "")) 
 		}
 		let images = []
 		$(".card-custom-avatar").map((e, i) => images.push(i.children[0].next.attribs.src))

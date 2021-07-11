@@ -15,7 +15,7 @@ module.exports.getInfoBot = async (id=String) => {
 	let info = {
 		name: $("title").html().replace("| DiscordThings", "").trim(),
 		id: id,
-		description: $("meta").next().next().next().attr("content"),
+		description: $(".has-text-white.is-size-6").html().trim(),
 		tag:$(".is-size-4").html(),
 		avatar: $(".bvoteArea.pt-5 ").find("img").attr("src"),
 		prefix: $(".box-2").html().replace("Prefix: ", "").trim(),
