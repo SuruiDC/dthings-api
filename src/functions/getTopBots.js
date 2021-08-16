@@ -10,19 +10,20 @@ module.exports.getTopBots = async () => {
 
 	info = []
 
-	let stats = []
-	for (var i of $(".is-inline-block").text().split(" ")){
-		i.length < 1 || i === "Invites:" || i === "Votos:" || i === "Votes:" || i === "\nVotos:" ? undefined : stats.push(i.replace("Votos:", "").replace("Votes:", "").replace("\n\nInvites:", "").replace("\n", "").replace("\n", "").replace("Invites: ", "")) 
-	}
+	let votes = []
+	$(".level.dthingscenter").map((e, i) => votes.push(i.children[0].data.replace("\n", "").replace("\n", "").replace("Votos: ", "")))
+
+	let invites = []
+	$(".points.dthingscenter").map((e, i) => invites.push(i.children[0].data.replace("\n", "").replace("\n", "").replace("Invites: ", "")))
 
 	let images = []
-	$(".card-custom-avatar").map((e, i) => images.push(i.children[0].next.attribs.src))
+	$(".additional").find("img").map((e, i) => images.push(i.attribs.src))
 
 	let status = []
-	$(".card-title.has-text-white.is-3").map((e, i) => status.push(i.children[0].next === null ? false : i.children[0].next.attribs.src))
+	$(".general").find("img").map((e, i) => status.push(i.attribs.src === null ? false : i.attribs.src))
 
 	let names = []
-	$(".card-title.has-text-white.is-3").map((e, i) => names.push(i.children[0].data))
+	$(".general").find("h1").map((e, i) => names.push(i.children[0].data.replace("\n", "")))
 
 	let ids = []
 	for (var i of images){
@@ -30,22 +31,22 @@ module.exports.getTopBots = async () => {
 	}
 
 	let descriptions = []
-	$(".col-md-6.col-lg-4.pb-3").find(".card-body").map((e, i) => descriptions.push(i.children[3].children[0].data))
+	$(".general").find("p").map((e, i) => descriptions.push(i.children[0].data))
 
 	for (var i in names){
 		info.push({
 			name: names[i],
 			id: ids[i],
+			avatar: images[i],
 			certificate: status[i] ? (
 				status[i].includes("https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png")
 			) : false,
 			botbug : status[i] ? (
 				status[i].includes("https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png")
 			) : false,
-			votes: stats[i],
-			invites: stats[parseInt(i) + 1]
+			votes: votes[i],
+			invites: invites[i]
 		})
-		stats.shift()
 	}
 	return info
 }

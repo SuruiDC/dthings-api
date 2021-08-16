@@ -13,44 +13,61 @@ module.exports.getUser = async (id=String) => {
 	if($("title").html() === "DiscordThings | 404") throw new Error("The user is not registered on the page")
 
 	let info = {
-		username: $(".UserName.is-size-5.has-text-white").text().trim(),
+		username: $(".is-size-5.has-text-white.title").text().trim(),
 		id: id,
 		avatar: $(".rounded-circle").attr("src"),
-		description: $(".text-center").find("p").html($(".text-center").find("p").html()).text().trim(),
-		votes: $(".heading.has-text-white").html().replace("\n", ""),
-		lastSesion: $(".card-profile-stats.d-flex.justify-content-center.mt-md-5").find("div").next().next().children().html().replace("\n", ""),
+		description: $(".col").find("p").next().html().trim(),
+		votes: $(".col").find("center").next().next().next().next().next().find("p").next().next().next().html().replace("\n", ""),
+		lastSession: $(".col").find("center").next().next().next().next().next().find("p").next().html(),
 		staff: Boolean,
 		points: String,
 		badges: [],
 		bots: []
 	}
 
-	for (var i of $(".tooltip").text().replace(/Votos: \d*/g, "").replace(/Invites \d*/g, "").trim().split("\n")){
-		i === "" || i === " " ? undefined : info.badges.push(i)
+	let defaultBadges = [
+    	'Brilliance',
+    	'Developer',
+    	'Nitro Classic',
+    	'Administrador',
+    	'Moderador',
+    	'Desarrollador Certificado',
+    	'Desarrollador de Bots',
+    	'Promovedor',
+    	'Seguidor',
+    	'Usuario de PyroNode',
+    	'Cliente PyroNode',
+    	'Caza Errores Experto',
+    	'Caza Errores'
+  	]
+	for (var i of $(".tooltip2").text().replace(/Votos: \d*/g, "").replace(/Invites \d*/g, "").trim().split("\n")){
+		i === "" || i === " " || !defaultBadges.includes(i.trim()) ? undefined : info.badges.push(i.trim())
 	}
 
-	/Puntos: \d*/g.test(info.badges[0]) ? (
-		info.points = info.badges.shift().replace("Puntos: ", ""),
+	/Puntos: \d*/g.test($(".tooltip2").find("span").html()) ? (
+		info.points = $(".tooltip2").find("span").html().replace("Puntos: ", ""),
 		info.staff = true 
 	) : (
 		info.points = "0",
 		info.staff = false
 	)
 
-	if(!$(".col-md-6.col-lg-4.pb-3").html()) info.bots = []
+	if(!$(".dthingscard2.centrado").html()) info.bots = []
 	else{
-		let stats = []
-		for (var i of $(".is-inline-block").text().replace(/[\n\r]/g,'').split(" ")){
-			i.length < 1 || i === "Invites:" || i === "Votos:" || i === "Votes:" || i === "\nVotos:" || i === "Invites:" ? undefined : stats.push(i.replace("Votos:", "").replace("Votes:", "").replace("\n\nInvites:", "").replace("\n", "").replace("\n", "").replace("Invites:", "")) 
-		}
+		let votes = []
+		$(".level.dthingscenter").map((e, i) => votes.push(i.children[0].data.replace("\n", "").replace("\n", "").replace("Votos: ", "")))
+
+		let invites = []
+		$(".points.dthingscenter").map((e, i) => invites.push(i.children[0].data.replace("\n", "").replace("\n", "").replace("Invites: ", "")))
+
 		let images = []
-		$(".card-custom-avatar").map((e, i) => images.push(i.children[0].next.attribs.src))
+		$(".additional").find("img").map((e, i) => images.push(i.attribs.src))
 
 		let status = []
-		$(".card-title.has-text-white.is-3").map((e, i) => status.push(i.children[0].next === null ? false : i.children[0].next.attribs.src))
+		$(".general").find("img").map((e, i) => status.push(i.attribs.src === null ? false : i.attribs.src))
 
 		let names = []
-		$(".card-title.has-text-white.is-3").map((e, i) => names.push(i.children[0].data))
+		$(".general").find("h1").map((e, i) => names.push(i.children[0].data.replace("\n", "")))
 
 		let ids = []
 		for (var i of images){
@@ -58,7 +75,7 @@ module.exports.getUser = async (id=String) => {
 		}
 
 		let descriptions = []
-		$(".col-md-6.col-lg-4.pb-3").find(".card-body").map((e, i) => descriptions.push(i.children[3].children[0].data))
+		$(".general").find("p").map((e, i) => descriptions.push(i.children[0].data))
 
 		for (var i in names){
 			info.bots.push({
@@ -71,10 +88,9 @@ module.exports.getUser = async (id=String) => {
 				botbug : status[i] ? (
 					status[i].includes("https://cdn.discordapp.com/attachments/855976462690942977/856265022720049173/bugbot-dthings.png")
 				) : false,
-				votes: stats[i],
-				invites: stats[parseInt(i) + 1]
+				votes: votes[i],
+				invites: invites[i]
 			})
-			stats.shift($(".is-inline-block").text().split(" "))
 		}
 	} 
 

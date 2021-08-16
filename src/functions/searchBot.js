@@ -6,7 +6,7 @@ module.exports.searchBot = async (name=String) => {
 	if(name.match(/\d{17,19}/g)) throw new TypeError("The name cannot be an id")
 
 	let $ = await request({
-		uri: `https://discordthings.com/search?q=${name.replace(" ", "+")}&page=1`, 
+		uri: `https://discordthings.com/search?q=${name.replace(/[^a-zA-z0-9 ]/g, "").replace(" ", "+")}&page=1`, 
 		transform: body => load(body)
 	})
 	if($("title").html() === "DiscordThings | 404") throw new Error("Results 0")
