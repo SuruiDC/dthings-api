@@ -43,10 +43,12 @@ return:
 {
   username: 'Surui',
   id: '618634689204322314',
-  avatar: 'https://cdn.discordapp.com/avatars/618634689204322314/4f9cae41b56d66f51dff1350453ab1e6',
+  avatar: 'https://cdn.discordapp.com/avatars/618634689204322314/3ff74a98ace51c7bf27611280ee737b1',
   description: 'Juego al osu',
-  votes: '40',
-  lastSesion: '2021/6/20',
+  votes: '47',
+  lastSesion: '2021/6/25',
+  staff: true,
+  points: '0',
   badges: [
     'Balance',
     'Moderador Jefe',
@@ -55,22 +57,23 @@ return:
     'Desarrollador de Bots',
     'Promovedor',
     'Seguidor',
-    'Usuario de PyroNode'
+    'Usuario de PyroNode',
+    'Cliente PyroNode',
+    'Caza Errores Experto'
   ],
   bots: [
     {
-      name: 'Elaina',
+      name: 'Elaina ',
       id: '720509373020897331',
+      avatar: 'https://cdn.discordapp.com/avatars/720509373020897331/4855a8f1df6cab97a66fd504be69cf77.webp?size=256',
       certificate: true,
       botbug: false,
-      avatar: 'https://cdn.discordapp.com/avatars/720509373020897331/4855a8f1df6cab97a66fd504be69cf77.webp?size=256',
-      votes: '40',
-      invites: '127'
+      votes: '47',
+      invites: '177'
     }
   ]
 }
 
-Note: Bots array limit 6 items
 
 */
 
