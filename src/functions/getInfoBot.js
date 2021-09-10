@@ -10,25 +10,29 @@ module.exports.getInfoBot = async (id=String) => {
 		transform: body => load(body)
 	})
 
-	if($("title").html() === "DiscordThings | 404") throw new Error("The bot is not registered on the page")
+	if($(".text-muted.text-bold").html()) throw new Error("The bot is not registered on the page")
+
+	let results = []
+	$(".float-right.has-text-white").map((e, i) => results.push(i.children[0].data))
 
 	let info = {
-		name: $("title").html().replace("| DiscordThings", "").trim(),
+		name: $("meta").attr("content").replace("en DiscordThings", "").trim(),
 		id: id,
-		description: $(".has-text-white.is-size-6").html().trim(),
-		tag:$(".is-size-4").html(),
-		avatar: $(".bvoteArea.pt-5 ").find("img").attr("src"),
-		prefix: $(".box-2").html().replace("Prefix: ", "").trim(),
-		servers: $(".is-flex.mt-4").next().find("p").html().replace("Servidores: ", ""),
-		votes: $(".is-flex.mt-4").next().next().find("p").html().replace("Votos: ", ""),
-		invites: $(".is-flex.mt-4").next().next().next().find("p").html().replace("Invitaciones: ", ""),
+		description: $(".lead.dthings__main__subtitle.mb-2").html().trim(),
+		avatar: $(".botlogo").attr("src"),
+		prefix: results[0],
+		servers: results[1],
+		votes: results[2],
+		invites: results[3],
 		tags: [],
 		page: [],
-		owner: $(".has-text-white.is-size-6").next().html()
+		owner: $("meta").next().next().next().attr("content").split("|")[1].trim()
 	}
+	let links = []
+	$(".col.col4").next().next().find(".mt-3").map((e, i) => links.push(i.attribs.href))
 
-	if($(".mt-3").attr("href")){
-		$(".mt-3").attr("href").includes("discord.gg" || "discord.com") ? undefined : info.page.push($(".mt-3").attr("href"))
+	for (var i of links){
+		!i || i.includes("discord.gg" || "discord.com") ? undefined : info.page.push(i)
 	}
 	$(".tag.botTags.mb-1").map((e, i) => info.tags.push(i.children[0].data))
 

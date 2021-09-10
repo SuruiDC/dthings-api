@@ -10,15 +10,15 @@ module.exports.getUser = async (id=String) => {
 		transform: body => load(body)
 	})
 
-	if($("title").html() === "DiscordThings | 404") throw new Error("The user is not registered on the page")
+	if($(".text-muted.text-bold").html()) throw new Error("The user is not registered on the page")
+
 
 	let info = {
-		username: $(".is-size-5.has-text-white.title").text().trim(),
+		username: $(".dthings__main__title.mt-2").text().trim(),
 		id: id,
-		avatar: $(".rounded-circle").attr("src"),
-		description: $(".col").find("p").next().html().trim(),
-		votes: $(".col").find("center").next().next().next().next().next().find("p").next().next().next().html().replace("\n", ""),
-		lastSession: $(".col").find("center").next().next().next().next().next().find("p").next().html(),
+		avatar: $(".botlogo").attr("src"),
+		description: $(".lead.dthings__main__subtitle.mb-2").text().trim(),
+		votes: 0,
 		staff: Boolean,
 		points: String,
 		badges: [],
@@ -52,22 +52,25 @@ module.exports.getUser = async (id=String) => {
 		info.staff = false
 	)
 
-	if(!$(".dthingscard2.centrado").html()) info.bots = []
+	if($(".dthings-card__flex h-100.has-banner-image").html()) info.bots = []
 	else{
 		let votes = []
-		$(".level.dthingscenter").map((e, i) => votes.push(i.children[0].data.replace("\n", "").replace("\n", "").replace("Votos: ", "")))
+		$(".dthings-card__flex__description").map((e, i) => votes.push(i.children[0].data.split("|")[0].replace("Votos: ", "").trim()))
 
 		let invites = []
-		$(".points.dthingscenter").map((e, i) => invites.push(i.children[0].data.replace("\n", "").replace("\n", "").replace("Invites: ", "")))
+		$(".dthings-card__flex__description").map((e, i) => invites.push(i.children[0].data.split("|")[1].replace("Invites: ", "").trim()))
 
 		let images = []
-		$(".additional").find("img").map((e, i) => images.push(i.attribs.src))
+		$(".dthings-card__flex__image").map((e, i) => images.push(i.attribs.style.match(/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/g)[0].replace(");", "").replace('"', "")))
 
 		let status = []
-		$(".general").find("img").map((e, i) => status.push(i.attribs.src === null ? false : i.attribs.src))
+		
+		for (var i of $(".dthings-card__flex__badges")){
+			status.push(!i.children[0].next ? false : i.children[0].next.children[0].next.attribs.src)
+		}
 
 		let names = []
-		$(".general").find("h1").map((e, i) => names.push(i.children[0].data.replace("\n", "")))
+		$(".dthings-card__flex__username").map((e, i) => names.push(i.children[0].data.replaceAll("\n", "")))
 
 		let ids = []
 		for (var i of images){
@@ -75,13 +78,14 @@ module.exports.getUser = async (id=String) => {
 		}
 
 		let descriptions = []
-		$(".general").find("p").map((e, i) => descriptions.push(i.children[0].data))
+		$(".dthings-card__flex__sectionText").map((e, i) => descriptions.push(i.children[0].data))
 
 		for (var i in names){
 			info.bots.push({
 				name: names[i],
 				id: ids[i],
 				avatar: images[i],
+				description: descriptions[i],
 				certificate: status[i] ? (
 					status[i].includes("https://cdn.discordapp.com/attachments/855976462690942977/856265017564594186/certifiedbot-dthings.png")
 				) : false,
@@ -91,6 +95,10 @@ module.exports.getUser = async (id=String) => {
 				votes: votes[i],
 				invites: invites[i]
 			})
+		}
+
+		for (var i of votes){
+			info.votes = info.votes + parseInt(i)
 		}
 	} 
 
